@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # Service 1: Web Server (Aplikasi Ilkom Rokania)
+  web:
+    build: .
+    container_name: web_ilkom_rokania
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+  # Service 2: Database MySQL
+  db:
+    image: mysql:8.0
+    container_name: db_ilkom_rokania
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_ilkom_rokania
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
